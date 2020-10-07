@@ -16,6 +16,18 @@ require 'set'
 #   about_triangle_project_2.rb
 #
 def triangle(a, b, c)
+  if (a == 0 || b == 0 || c == 0)
+    raise TriangleError, "Triangle sides cannot be zero length"
+  end
+
+  if (a < 0 || b < 0 || c < 0)
+    raise TriangleError, "Triangle sides cannot be negative length"
+  end
+
+  unless isATriangle(a, b, c)
+    raise TriangleError, "A triangle with lengths of #{a}, #{b}, and #{c} is impossible"
+  end
+
   sides = Set[a, b, c]
 
   if sides.length == 1
@@ -25,6 +37,11 @@ def triangle(a, b, c)
   else
     return :scalene
   end
+end
+
+def isATriangle(a, b, c)
+  # thanks, wikihow! https://www.wikihow.com/Determine-if-Three-Side-Lengths-Are-a-Triangle
+  return (a + b > c) && (a + c > b) && (b + c > a)
 end
 
 # Error class used in part 2.  No need to change this code.
